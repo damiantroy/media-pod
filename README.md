@@ -1,7 +1,7 @@
-# VideoBot: Personal Video Downloader running on CentOS 8 and Podman
+# VideoBot: Personal Video Downloader
 
-This tutorial will help you create an all-in-one HTPC Downloader box. You'll create containers for a VPN, Jacket,
-Deluge, SABnzbd, Sonarr, Radarr and Plex Media Server.
+This tutorial will help you create an all-in-one HTPC Downloader box. You'll create installations for OpenVPN, Jackett,
+Deluge, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on CentOS 8.
 
 As this was a learning experience for CentOS 8, Podman, and containers in general, I've written most of the container
 code myself. It's probably not the best code, but I had fun along the way.
