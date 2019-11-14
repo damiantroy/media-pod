@@ -5,7 +5,7 @@ source ${BASEDIR}/env.sh
 
 if [[ -z "${PLEX_CLAIM_TOKEN}" ]]; then
     echo "Error: Missing Plex Claim Token" >&2
-    echo "Please visit https://www.plex.tv/claim/" >&2
+    echo "Please visit https://www.plex.tv/claim/ and set the \$PLEX_CLAIM_TOKEN variable" >&2
     exit 1
 fi
 
@@ -14,7 +14,7 @@ sudo podman run -d \
     --network=host \
     --systemd=false \
     -e TZ=${TZ} \
-    -e PLEX_CLAIM=${CLAIM_TOKEN} \
+    -e PLEX_CLAIM=${PLEX_CLAIM_TOKEN} \
     -e PLEX_UID=${PUID} \
     -e PLEX_GID=${PGID} \
     -v ${PLEX_CONFIG_DIR}:/config:Z \
