@@ -153,8 +153,6 @@ sudo mkdir -p ${VIDEOS_DIR}/downloads/jackett ${JACKETT_CONFIG_DIR}
 sudo chown -R ${APP_USER}:${APP_GROUP} ${VIDEOS_DIR} ${JACKETT_CONFIG_DIR}
 ```
 
-TODO: Configure Jackett ad-hoc downloads and create its directory
-
 Start the Jackett container:
 
 ```shell script
