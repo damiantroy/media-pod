@@ -352,7 +352,7 @@ sudo firewall-cmd --reload
 Generate a [Plex Claim Token](https://www.plex.tv/claim/), then save it to an environment variable:
 
 ```shell script
-CLAIM_TOKEN=claim-xxx
+PLEX_CLAIM_TOKEN=claim-xxx
 ```
 
 Create the Plex Media Server container:
@@ -363,7 +363,7 @@ sudo podman run -d \
     --network=host \
     --systemd=false \
     -e TZ=${TZ} \
-    -e PLEX_CLAIM=${CLAIM_TOKEN} \
+    -e PLEX_CLAIM=${PLEX_CLAIM_TOKEN} \
     -e PLEX_UID=${PUID} \
     -e PLEX_GID=${PGID} \
     -v ${PLEX_CONFIG_DIR}:/config:Z \
