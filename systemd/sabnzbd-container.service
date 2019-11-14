@@ -1,0 +1,11 @@
+[Unit]
+Description=SABnzbd container
+Wants=network-online.target
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a sabnzbd
+ExecStop=/usr/bin/podman stop -t 10 sabnzbd
+
+[Install]
+WantedBy=multi-user.target

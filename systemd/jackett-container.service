@@ -1,0 +1,12 @@
+[Unit]
+Description=Jackett container
+Wants=network-online.target
+After=vpn-container.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a jackett
+ExecStop=/usr/bin/podman stop -t 10 jackett
+
+[Install]
+WantedBy=multi-user.target

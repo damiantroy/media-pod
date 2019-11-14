@@ -1,0 +1,12 @@
+[Unit]
+Description=VPN container
+Wants=network-online.target
+After=systemd-modules-load.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a vpn
+ExecStop=/usr/bin/podman stop -t 10 vpn
+
+[Install]
+WantedBy=multi-user.target

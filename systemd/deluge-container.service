@@ -1,0 +1,12 @@
+[Unit]
+Description=Deluge container
+Wants=network-online.target
+After=vpn-container.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a deluge
+ExecStop=/usr/bin/podman stop -t 10 deluge
+
+[Install]
+WantedBy=multi-user.target
