@@ -11,4 +11,4 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${SONARR_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    ${SONAR_IMAGE}
+    ${SONARR_IMAGE}
