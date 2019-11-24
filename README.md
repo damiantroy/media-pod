@@ -58,6 +58,15 @@ PLEX_CONFIG_DIR=/var/lib/plexmediaserver
 PLEX_TRANSCODE_DIR=/var/cache/plexmediaserver
 ```
 
+### Clone Repo
+
+If you haven't cloned the VideoBot repo already, you'll need to do so:
+
+```shell script
+sudo dnf install git
+git clone git@github.com:damiantroy/videobot.git
+```
+
 ### User and Group
 
 Here we'll add the user and group which will own the downloaded and configuration files. Each of the containers run
@@ -89,12 +98,17 @@ This is a third party container, [dperson/openvpn-client](https://github.com/dpe
 [Private Internet Access](https://www.privateinternetaccess.com/) (PIA) is used in this example, but any provider
 compatible with OpenVPN should work.
 
+Install required packages:
+```shell script
+sudo dnf install unzip
+```
+
 Generate the required configuration file from PIA:
 
 ```shell script
 mkdir /tmp/pia
 cd /tmp/pia/
-wget https://www.privateinternetaccess.com/openvpn/openvpn.zip
+curl https://www.privateinternetaccess.com/openvpn/openvpn.zip -o openvpn.zip
 unzip openvpn.zip
 cp AU\ Melbourne.ovpn vpn.conf # Or any other .ovpn file
 sed -i 's/^persist-tun/# persist-tun/' vpn.conf
@@ -182,7 +196,7 @@ sudo systemctl start jackett-container.service
 Create the required directories:
 
 ```shell script
-sudo mkdir -p ${videos_dir}/downloads/deluge ${deluge_config_dir}
+sudo mkdir -p ${videos_dir}/downloads/deluge ${DELUGE_CONFIG_DIR}
 sudo chown -R ${APP_USER}:${APP_GROUP} ${VIDEOS_DIR} ${DELUGE_CONFIG_DIR}
 ```
 
