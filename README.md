@@ -171,7 +171,7 @@ sudo systemctl start vpn-container.service
 Create the required directories:
 
 ```shell script
-sudo mkdir -p ${VIDEOS_DIR}/downloads/jackett ${JACKETT_CONFIG_DIR}
+sudo mkdir -p ${VIDEOS_DIR}/downloads/torrents ${JACKETT_CONFIG_DIR}
 sudo chown -R ${APP_USER}:${APP_GROUP} ${VIDEOS_DIR} ${JACKETT_CONFIG_DIR}
 ```
 
@@ -204,7 +204,7 @@ sudo systemctl start jackett-container.service
 Create the required directories:
 
 ```shell script
-sudo mkdir -p ${videos_dir}/downloads/deluge ${DELUGE_CONFIG_DIR}
+sudo mkdir -p ${videos_dir}/downloads/{deluge,torrents} ${DELUGE_CONFIG_DIR}
 sudo chown -R ${APP_USER}:${APP_GROUP} ${VIDEOS_DIR} ${DELUGE_CONFIG_DIR}
 ```
 
