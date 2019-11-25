@@ -99,6 +99,7 @@ This is a third party container, [dperson/openvpn-client](https://github.com/dpe
 compatible with OpenVPN should work.
 
 Install required packages:
+
 ```shell script
 sudo dnf install unzip
 ```
@@ -133,6 +134,13 @@ sudo chmod 600 ${VPN_CONFIG_DIR}/vpn.auth
 ```text
 your_pia_username
 your_pia_password
+```
+
+Load the tun module:
+
+```shell script
+echo tun | sudo tee /etc/modules-load.d/tun.conf
+modprobe tun
 ```
 
 Start the VPN container:
