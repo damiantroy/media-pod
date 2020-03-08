@@ -55,7 +55,7 @@ SABNZBD_CONFIG_DIR=/etc/config/sabnzbd
 SONARR_CONFIG_DIR=/etc/config/sonarr
 RADARR_CONFIG_DIR=/etc/config/radarr
 PLEX_CONFIG_DIR=/var/lib/plexmediaserver
-PLEX_TRANSCODE_DIR=/var/cache/plexmediaserver
+PLEX_TRANSCODE_DIR=/videos/plex
 ```
 
 ### Clone Repo

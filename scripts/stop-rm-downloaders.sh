@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-for SERVICE in radarr sabnzbd sonarr jackett deluge vpn; do
-    echo "Stopping and removing ${SERVICE}..."
-    sudo systemctl stop ${SERVICE}-container
-    sudo podman stop $SERVICE
-    sudo podman rm $SERVICE
+for CONTAINER in radarr sonarr sabnzbd deluge jackett vpn nginx; do
+    echo "Stopping and removing ${CONTAINER}..."
+    sudo systemctl stop ${CONTAINER}-container
+    sudo podman stop $CONTAINER
+    sudo podman rm $CONTAINER
     echo
 done
 

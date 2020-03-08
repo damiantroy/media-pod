@@ -11,6 +11,7 @@ APP_GROUP=videos
 # Image Tags
 PLEX_TAG=plexpass # Options: latest, public, plexpass
 VPN_TAG=latest
+NGINX_TAG=latest
 
 # Directories
 VIDEOS_DIR=/videos
@@ -21,7 +22,10 @@ SABNZBD_CONFIG_DIR=/etc/config/sabnzbd
 SONARR_CONFIG_DIR=/etc/config/sonarr
 RADARR_CONFIG_DIR=/etc/config/radarr
 PLEX_CONFIG_DIR=/var/lib/plexmediaserver
-PLEX_TRANSCODE_DIR=/var/cache/plexmediaserver
+PLEX_TRANSCODE_DIR=/videos/plex
+NGINX_CONFIG_DIR=/etc/nginx
+NGINX_CACHE_DIR=/var/cache/nginx
+NGINX_RUN_DIR=/run/nginx
 
 # Images
 VPN_IMAGE=dperson/openvpn-client
@@ -31,3 +35,5 @@ SABNZBD_IMAGE=damiantroy/sabnzbd
 RADARR_IMAGE=damiantroy/radarr
 SONARR_IMAGE=damiantroy/sonarr
 PLEX_IMAGE=plexinc/pms-docker
+NGINX_IMAGE=library/nginx
+
