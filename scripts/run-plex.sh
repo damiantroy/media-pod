@@ -9,6 +9,20 @@ if [[ -z "${PLEX_CLAIM_TOKEN}" ]]; then
     exit 1
 fi
 
+while getopts "r" OPT; do
+    case "$OPT" in
+        r)  REBUILD=true
+    esac
+done
+
+if [[ "$REBUILD" == "true" ]]; then
+    echo "* Stopping and destroying Plex"
+    sudo systemctl stop plex-container.service
+    sudo podman stop plex
+    sudo podman rm plex
+fi
+
+echo "* Starting Plex"
 sudo podman run -d \
     --name=plex \
     --network=host \
@@ -21,3 +35,8 @@ sudo podman run -d \
     -v ${PLEX_TRANSCODE_DIR}:/transcode:Z \
     -v ${VIDEOS_DIR}:/data:z \
     ${PLEX_IMAGE}:${PLEX_TAG}
+
+if [[ "$REBUILD" == "true" ]]; then
+    sudo systemctl start plex-container.service
+fi
+
