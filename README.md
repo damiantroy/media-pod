@@ -45,6 +45,7 @@ APP_GROUP=videos
 # Image Tags
 PLEX_TAG=plexpass # Options: latest, public, plexpass
 VPN_TAG=latest
+NGINX_TAG=latest
 
 # Directories
 VIDEOS_DIR=/videos
@@ -56,6 +57,19 @@ SONARR_CONFIG_DIR=/etc/config/sonarr
 RADARR_CONFIG_DIR=/etc/config/radarr
 PLEX_CONFIG_DIR=/var/lib/plexmediaserver
 PLEX_TRANSCODE_DIR=/videos/plex
+NGINX_CONFIG_DIR=/etc/nginx
+NGINX_CACHE_DIR=/var/cache/nginx
+NGINX_RUN_DIR=/run/nginx
+
+# Images
+VPN_IMAGE=dperson/openvpn-client
+JACKETT_IMAGE=damiantroy/jackett
+DELUGE_IMAGE=damiantroy/deluge
+SABNZBD_IMAGE=damiantroy/sabnzbd
+RADARR_IMAGE=damiantroy/radarr
+SONARR_IMAGE=damiantroy/sonarr
+PLEX_IMAGE=plexinc/pms-docker
+NGINX_IMAGE=library/nginx
 ```
 
 ### Clone Repo
@@ -75,6 +89,13 @@ their applications as the same UID/GID, so won't have any trouble working with t
 ```shell script
 sudo groupadd -g ${PGID} $APP_GROUP
 sudo useradd -u ${PUID} -g $APP_GROUP $APP_USER
+```
+
+### Enable Masquerading
+
+```shell script
+sudo firewall-cmd --add-masquerade --permanent
+sudo firewall-cmd --reload
 ```
 
 ### Configure Podman
@@ -144,6 +165,7 @@ modprobe tun
 ```
 
 Start the VPN container:
+
 ```shell script
 sudo podman run -d --cap-add=NET_ADMIN --device /dev/net/tun \
     --name=vpn \
@@ -152,7 +174,7 @@ sudo podman run -d --cap-add=NET_ADMIN --device /dev/net/tun \
     -v ${VPN_CONFIG_DIR}:/vpn:Z \
     -p 9117:9117 \
     -p 8112:8112 \
-    dperson/openvpn-client:${VPN_TAG} \
+    ${VPN_IMAGE}:${VPN_TAG} \
     -r ${LOCAL_NET_CIDR} \
     -f ""
 ```
@@ -162,8 +184,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/vpn-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable vpn-container.service
-sudo systemctl start vpn-container.service
+sudo systemctl enable --now vpn-container.service
 ```
 
 ### Install Jackett Container
@@ -187,7 +208,7 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${JACKETT_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    damiantroy/jackett
+    ${JACKETT_IMAGE}
 ```
 
 Add the container to systemd for service management:
@@ -195,8 +216,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/jackett-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable jackett-container.service
-sudo systemctl start jackett-container.service
+sudo systemctl enable --now jackett-container.service
 ```
 
 ### Install Deluge Container
@@ -220,7 +240,7 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${DELUGE_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    damiantroy/deluge
+    ${DELUGE_IMAGE}
 ```
 
 Add the container to systemd for service management:
@@ -228,8 +248,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/deluge-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable deluge-container.service
-sudo systemctl start deluge-container.service
+sudo systemctl enable --now deluge-container.service
 ```
 
 ### Install SABnzbd Container
@@ -260,7 +279,7 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${SABNZBD_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    damiantroy/sabnzbd
+    ${SABNZBD_IMAGE}
 ```
 
 Add the container to systemd for service management:
@@ -268,8 +287,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/sabnzbd-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable sabnzbd-container.service
-sudo systemctl start sabnzbd-container.service
+sudo systemctl enable --now sabnzbd-container.service
 ```
 
 ### Install Sonarr Container
@@ -300,7 +318,7 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${SONARR_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    damiantroy/sonarr
+    ${SONARR_IMAGE}
 ```
 
 Add the container to systemd for service management:
@@ -308,8 +326,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/sonarr-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable sonarr-container.service
-sudo systemctl start sonarr-container.service
+sudo systemctl enable --now sonarr-container.service
 ```
 
 ### Install Radarr Container
@@ -340,7 +357,7 @@ sudo podman run -d \
     -e TZ=${TZ} \
     -v ${RADARR_CONFIG_DIR}:/config:Z \
     -v ${VIDEOS_DIR}:/videos:z \
-    damiantroy/radarr
+    ${RADARR_IMAGE}
 ```
 
 Add the container to systemd for service management:
@@ -348,8 +365,7 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/radarr-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable radarr-container.service
-sudo systemctl start radarr-container.service
+sudo systemctl enable --now radarr-container.service
 ```
 
 ### Install Plex Media Server Container
@@ -391,7 +407,7 @@ sudo podman run -d \
     -v ${PLEX_CONFIG_DIR}:/config:Z \
     -v ${PLEX_TRANSCODE_DIR}:/transcode:Z \
     -v ${VIDEOS_DIR}:/data:z \
-    plexinc/pms-docker:${PLEX_TAG}
+    ${PLEX_IMAGE}:${PLEX_TAG}
 ```
 
 Add the container to systemd for service management:
@@ -399,6 +415,5 @@ Add the container to systemd for service management:
 ```shell script
 sudo cp systemd/plex-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable plex-container.service
-sudo systemctl start plex-container.service
+sudo systemctl enable --now plex-container.service
 ```
