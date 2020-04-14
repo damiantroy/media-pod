@@ -28,7 +28,6 @@ fi
 
 echo "* Starting VPN"
 sudo podman run -d --cap-add=NET_ADMIN --device /dev/net/tun \
-    --network host \
     --name=vpn \
     --security-opt="label=disable" \
     -e TZ=${TZ} \
