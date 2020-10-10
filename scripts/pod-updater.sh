@@ -24,7 +24,7 @@ function vecho () {
 }
 
 # Get list of running images
-CONTAINERS=$(podman ps --format json | jq -r '.[]?.Names')
+CONTAINERS=$(podman ps --format json | jq -r '.[]?.Names[]')
 
 # Get containers current image ID
 vecho "Inspecting containers"
