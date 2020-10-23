@@ -78,7 +78,8 @@ If you haven't cloned the VideoBot repo already, you'll need to do so:
 
 ```shell script
 sudo dnf install git
-git clone git@github.com:damiantroy/videobot.git
+git clone https://github.com/damiantroy/videobot.git
+cd videobot/
 ```
 
 ### User and Group
@@ -290,6 +291,14 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now sabnzbd-container.service
 ```
 
+SABnzbd binds to the localhost, we need to change that if you want to access it from another host:
+
+```shell script
+sudo systemctl stop sabnzbd-container.service
+sudo sed -i 's/^host =.*/host = 0.0.0.0/' ${SABNZBD_CONFIG_DIR}/.sabnzbd/sabnzbd.ini
+sudo systemctl start sabnzbd-container.service
+```
+
 ### Install Sonarr Container
 
 Create the required directories:
@@ -417,3 +426,32 @@ sudo cp systemd/plex-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now plex-container.service
 ```
+
+## Configure
+
+To configure each app, you can visit them each in a web browser:
+
+### Plex
+
+Address: http://<server>:32400
+
+### Jackett
+
+Address: http://<server>:9117
+
+### Deluge
+
+Address: http://<server>:8112
+
+### SABnzbd
+
+Address: http://<server>:8080
+
+### Sonarr
+
+Address: http://<server>:8989
+
+### Radarr
+
+Address: http://<server>:7878
+
