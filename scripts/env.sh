@@ -15,12 +15,12 @@ NGINX_TAG=latest
 
 # Directories
 VIDEOS_DIR=/videos
-VPN_CONFIG_DIR=/etc/config/vpn
-JACKETT_CONFIG_DIR=/etc/config/jackett
-DELUGE_CONFIG_DIR=/etc/config/deluge
-SABNZBD_CONFIG_DIR=/etc/config/sabnzbd
-SONARR_CONFIG_DIR=/etc/config/sonarr
-RADARR_CONFIG_DIR=/etc/config/radarr
+VPN_CONFIG_DIR=/etc/openvpn
+JACKETT_CONFIG_DIR=/etc/jackett
+DELUGE_CONFIG_DIR=/etc/deluge
+SABNZBD_CONFIG_DIR=/etc/sabnzbd
+SONARR_CONFIG_DIR=/etc/sonarr
+RADARR_CONFIG_DIR=/etc/radarr
 PLEX_CONFIG_DIR=/var/lib/plexmediaserver
 PLEX_TRANSCODE_DIR=/videos/plex
 NGINX_CONFIG_DIR=/etc/nginx
@@ -29,11 +29,10 @@ NGINX_RUN_DIR=/run/nginx
 
 # Images
 VPN_IMAGE=dperson/openvpn-client
-JACKETT_IMAGE=damiantroy/jackett
+JACKETT_IMAGE=localhost/jackett
 DELUGE_IMAGE=damiantroy/deluge
-SABNZBD_IMAGE=damiantroy/sabnzbd
-RADARR_IMAGE=damiantroy/radarr
-SONARR_IMAGE=damiantroy/sonarr
+SABNZBD_IMAGE=localhost/sabnzbd
+RADARR_IMAGE=localhost/radarr
+SONARR_IMAGE=localhost/sonarr
 PLEX_IMAGE=plexinc/pms-docker
 NGINX_IMAGE=library/nginx
-

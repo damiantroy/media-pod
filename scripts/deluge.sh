@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
-source ${BASEDIR}/env.sh
+source "${BASEDIR}/env.sh"
 
 while getopts "r" OPT; do
     case "$OPT" in
@@ -18,15 +18,15 @@ fi
 
 echo "* Starting Deluge"
 sudo podman run -d \
-    --name deluge \
-    --network container:vpn \
+    --name=deluge \
+    --network=container:vpn \
     --security-opt="label=disable" \
-    -e PUID=${PUID} \
-    -e PGID=${PGID} \
-    -e TZ=${TZ} \
-    -v ${DELUGE_CONFIG_DIR}:/config:Z \
-    -v ${VIDEOS_DIR}:/videos:z \
-    ${DELUGE_IMAGE}
+    -e PUID="$PUID" \
+    -e PGID="$PGID" \
+    -e TZ="$TZ" \
+    -v "$DELUGE_CONFIG_DIR:/config:Z" \
+    -v "$VIDEOS_DIR:/videos:z" \
+    "$DELUGE_IMAGE"
 
 if [[ "$REBUILD" == "true" ]]; then
     sudo systemctl start deluge-container.service
