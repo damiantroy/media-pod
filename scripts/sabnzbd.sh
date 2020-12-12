@@ -18,16 +18,15 @@ fi
 
 echo "* Starting SABnzbd"
 sudo podman run -d \
-    --name sabnzbd \
-    --network host \
-    -e PUID=${PUID} \
-    -e PGID=${PGID} \
-    -e TZ=${TZ} \
-    -v ${SABNZBD_CONFIG_DIR}:/config:Z \
-    -v ${VIDEOS_DIR}:/videos:z \
-    ${SABNZBD_IMAGE}
+    --name=sabnzbd \
+    --network=host \
+    -e PUID="$PUID" \
+    -e PGID="$PGID" \
+    -e TZ="$TZ" \
+    -v "$SABNZBD_CONFIG_DIR:/config:Z" \
+    -v "$VIDEOS_DIR:/videos:z" \
+    "$SABNZBD_IMAGE"
 
 if [[ "$REBUILD" == "true" ]]; then
     sudo systemctl start sabnzbd-container.service
 fi
-

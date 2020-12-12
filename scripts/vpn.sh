@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
-source ${BASEDIR}/env.sh
+source "${BASEDIR}/env.sh"
 
 while getopts "r" OPT; do
     case "$OPT" in
@@ -30,21 +30,20 @@ echo "* Starting VPN"
 sudo podman run -d --cap-add=NET_ADMIN --device /dev/net/tun \
     --name=vpn \
     --security-opt="label=disable" \
-    -e TZ=${TZ} \
-    -v ${VPN_CONFIG_DIR}:/vpn:Z \
+    -e TZ="$TZ" \
+    -v "$VPN_CONFIG_DIR:/vpn:Z" \
     -p 9117:9117 \
     -p 8112:8112 \
-    ${VPN_IMAGE}:${VPN_TAG} \
-    -r ${LOCAL_NET_CIDR} \
+    "$VPN_IMAGE:$VPN_TAG" \
+    -r "$LOCAL_NET_CIDR" \
     -f ""
 
 if [[ "$REBUILD" == "true" ]]; then
     sudo systemctl start vpn-container.service
 
-    $BASEDIR/run-jackett.sh
+    "$BASEDIR/jackett.sh"
     sudo systemctl start jackett-container.service
 
-    $BASEDIR/run-deluge.sh
+    "$BASEDIR/deluge.sh"
     sudo systemctl start deluge-container.service
 fi
-
