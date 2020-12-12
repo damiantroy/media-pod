@@ -29,10 +29,10 @@ NGINX_RUN_DIR=/run/nginx
 
 # Images
 VPN_IMAGE=dperson/openvpn-client
-JACKETT_IMAGE=localhost/jackett
+JACKETT_IMAGE=damiantroy/jackett
 DELUGE_IMAGE=damiantroy/deluge
-SABNZBD_IMAGE=localhost/sabnzbd
-RADARR_IMAGE=localhost/radarr
-SONARR_IMAGE=localhost/sonarr
+SABNZBD_IMAGE=damiantroy/sabnzbd
+RADARR_IMAGE=damiantroy/radarr
+SONARR_IMAGE=damiantroy/sonarr
 PLEX_IMAGE=plexinc/pms-docker
 NGINX_IMAGE=library/nginx
