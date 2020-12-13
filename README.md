@@ -26,6 +26,9 @@ may learn something along the way.
 
 ## Preparation
 
+These steps are for a fresh install of CentOS Stream 8. They were made for a 'minimal' install, and will work with
+other installs selected. Minimal installs just have less packages installed.
+
 ### Clone Repo
 
 If you haven't cloned the VideoBot repo already, you'll need to do so:
