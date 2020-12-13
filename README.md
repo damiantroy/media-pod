@@ -96,18 +96,18 @@ echo 'keepalive 10 30' >> /tmp/pia/vpn.conf
 echo 'pull-filter ignore "auth-token"' >> /tmp/pia/vpn.conf
 sed -i 's#^auth-user-pass#auth-user-pass /vpn/vpn.auth#' /tmp/pia/vpn.conf
 sudo mkdir -p "$VPN_CONFIG_DIR"
-sudo cp /tmp/pia/vpn.conf "${VPN_CONFIG_DIR}/"
+sudo cp /tmp/pia/vpn.conf "$VPN_CONFIG_DIR/"
 rm -rf /tmp/pia*
 ```
 
 Securely create your VPN authentication file:
 
 ```shell script
-sudo touch ${VPN_CONFIG_DIR}/vpn.auth
-sudo chmod 600 ${VPN_CONFIG_DIR}/vpn.auth
+sudo touch "$VPN_CONFIG_DIR/vpn.auth"
+sudo chmod 600 "$VPN_CONFIG_DIR/vpn.auth"
 ```
 
-`sudoedit ${VPN_CONFIG_DIR}/vpn.auth`, with your PIA username and password:
+`sudoedit "$VPN_CONFIG_DIR/vpn.auth"`, with your PIA username and password:
 
 ```text
 your_pia_username
@@ -225,7 +225,7 @@ SABnzbd binds to the localhost, we need to change that if you want to access it 
 
 ```shell script
 sudo systemctl stop sabnzbd-container.service
-sudo sed -i 's/^host =.*/host = 0.0.0.0/' ${SABNZBD_CONFIG_DIR}/.sabnzbd/sabnzbd.ini
+sudo sed -i 's/^host =.*/host = 0.0.0.0/' "$SABNZBD_CONFIG_DIR/.sabnzbd/sabnzbd.ini"
 sudo systemctl start sabnzbd-container.service
 ```
 
