@@ -10,10 +10,10 @@ while getopts "r" OPT; do
 done
 
 if [[ "$REBUILD" == "true" ]]; then
-    echo "* Stopping and destroying Deluge"
-    sudo systemctl stop deluge-container.service
-    sudo podman stop deluge
-    sudo podman rm deluge
+    echo "* Stopping and destroying qBittorrent"
+    sudo systemctl stop qbittorrent-container.service
+    sudo podman stop qbittorrent
+    sudo podman rm qbittorrent
 
     echo "* Stopping and destroying Jackett"
     sudo systemctl stop jackett-container.service
@@ -33,7 +33,7 @@ sudo podman run -d --cap-add=NET_ADMIN --device /dev/net/tun \
     -e TZ="$TZ" \
     -v "$VPN_CONFIG_DIR:/vpn:Z" \
     -p 9117:9117 \
-    -p 8112:8112 \
+    -p 8111:8111 \
     "$VPN_IMAGE:$VPN_TAG" \
     -r "$LOCAL_NET_CIDR" \
     -f ""
@@ -44,6 +44,6 @@ if [[ "$REBUILD" == "true" ]]; then
     "$BASEDIR/jackett.sh"
     sudo systemctl start jackett-container.service
 
-    "$BASEDIR/deluge.sh"
-    sudo systemctl start deluge-container.service
+    "$BASEDIR/qbittorrent.sh"
+    sudo systemctl start qbittorrent-container.service
 fi

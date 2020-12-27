@@ -1,7 +1,7 @@
 # VideoBot: Personal Video Downloader
 
 This tutorial will help you create an all-in-one HTPC downloader box. You'll create installations for OpenVPN, Jackett,
-Deluge, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on CentOS Stream 8.
+qBittorrent, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on CentOS Stream 8.
 
 As this was a learning experience for CentOS 8, Podman, and containers in general, I've written most of the container
 code myself. It's probably not the best code, but I had fun along the way.
@@ -18,7 +18,7 @@ may learn something along the way.
 + [Installation](#Installation)
   + [Install VPN](#Install-VPN-Container)
   + [Install Jackett](#Install-Jackett-Container)
-  + [Install Deluge](#Install-Deluge-Container)
+  + [Install qBittorrent](#Install-qBittorrent-Container)
   + [Install SABnzbd](#Install-SABnzbd-Container)
   + [Install Sonarr](#Install-Sonarr-Container)
   + [Install Radarr](#Install-Radarr-Container)
@@ -165,32 +165,32 @@ sudo systemctl enable --now jackett-container.service
 Open a web browser and enter the address with your hostname:
 * http://example.com:9117/
 
-### Install Deluge Container
+### Install qBittorrent Container
 
 Create the required directories:
 
 ```shell script
 scripts/env.sh
-sudo mkdir -p "$VIDEOS_DIR/downloads/{deluge,torrents}" "$DELUGE_CONFIG_DIR"
-sudo chown -R "$APP_USER:$APP_GROUP" "$VIDEOS_DIR" "$DELUGE_CONFIG_DIR"
+sudo mkdir -p "$VIDEOS_DIR/downloads/qbittorrent" "$QBITTORRENT_CONFIG_DIR"
+sudo chown -R "$APP_USER:$APP_GROUP" "$VIDEOS_DIR" "$QBITTORRENT_CONFIG_DIR"
 ```
 
-Start the Deluge container:
+Start the qBittorrent container:
 
 ```shell script
-./scripts/deluge.sh
+./scripts/qbittorrent.sh
 ```
 
 Add the container to systemd for service management:
 
 ```shell script
-sudo cp systemd/deluge-container.service /etc/systemd/system/
+sudo cp systemd/qbittorrent-container.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now deluge-container.service
+sudo systemctl enable --now qbittorrent-container.service
 ```
 
 Open a web browser and enter the address with your hostname:
-* http://example.com:8112/
+* http://example.com:8111/
 
 ### Install SABnzbd Container
 
