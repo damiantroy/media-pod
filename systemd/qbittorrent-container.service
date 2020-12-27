@@ -1,0 +1,12 @@
+[Unit]
+Description=qBittorrent container
+Wants=network-online.target
+After=vpn-container.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/podman start -a qbittorrent
+ExecStop=/usr/bin/podman stop -t 10 qbittorrent
+
+[Install]
+WantedBy=multi-user.target
