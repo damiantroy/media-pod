@@ -1,14 +1,13 @@
 # VideoBot: Personal Video Downloader
 
 This tutorial will help you create an all-in-one HTPC downloader box. You'll create installations for OpenVPN, Jackett,
-qBittorrent, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on CentOS Stream 8.
+qBittorrent, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on Rocky Linux 8.
 
-As this was a learning experience for CentOS 8, Podman, and containers in general, I've written most of the container
-code myself. It's probably not the best code, but I had fun along the way.
+As this was a learning experience for CentOS/Rocky Linux 8, Podman, and containers in general, I've written most of the
+container code myself. It's probably not the best code, but I had fun along the way.
 
-Originally the containers were created using CentOS 7, and just as I coverted a few of them to CentOS 8, Red Hat
-pulled some shenanigans by annoncing the early EOL of CentOS 8, so I'll be converting the containers to
-[Rocky Linux](https://rockylinux.org/) when it becomes available and when I get the chance.
+Originally the containers were created using CentOS 7, and just as I converted a few of them to CentOS 8, Red Hat
+announced the EOL of CentOS 8, so I've converted them to Rocky Linux 8 instead.
 
 As with any tutorial, but sure to inspect any scripts or Dockerfiles before running them. Not just for safety, but you
 may learn something along the way.
@@ -26,7 +25,7 @@ may learn something along the way.
 
 ## Preparation
 
-These steps are for a fresh install of CentOS Stream 8. They were made for a 'minimal' install, and will work with
+These steps are for a fresh install of Rocky Linux 8. They were made for a 'minimal' install, and will work with
 other installs selected. Minimal installs just have less packages installed.
 
 ### Clone Repo
