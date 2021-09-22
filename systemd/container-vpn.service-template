@@ -1,0 +1,36 @@
+[Unit]
+Description=Podman container-vpn.service
+Documentation=man:podman-generate-systemd(1)
+Wants=network-online.target
+After=systemd-modules-load.service network-online.target
+RequiresMountsFor=%t/containers
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f %t/container-vpn.pid %t/container-vpn.ctr-id
+ExecStart=/usr/bin/podman run -d \
+          --name=vpn \
+          --conmon-pidfile %t/container-vpn.pid \
+          --cidfile %t/container-vpn.ctr-id \
+          --sdnotify=conmon \
+          --cgroups=no-conmon \
+          --rm \
+          --replace \
+          --cap-add=NET_ADMIN \
+          --device /dev/net/tun \
+          --security-opt=label=disable \
+          -e TZ=$TZ \
+          -v $VPN_CONFIG_DIR:/vpn:Z \
+          -p 9117:9117 \
+          -p 8111:8111 \
+          --label "io.containers.autoupdate=registry" \
+          $VPN_IMAGE:$VPN_TAG -r $LOCAL_NET_CIDR -f ""
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-vpn.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-vpn.ctr-id
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target default.target
