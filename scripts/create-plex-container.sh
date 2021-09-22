@@ -4,9 +4,14 @@ BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 source "${BASEDIR}/env.sh"
 
 if [[ -z "${PLEX_CLAIM_TOKEN}" ]]; then
-    echo "Error: Missing Plex Claim Token" >&2
-    echo "Please visit https://www.plex.tv/claim/ and set the \$PLEX_CLAIM_TOKEN variable" >&2
-    exit 1
+    if [[ -e "$HOME/.plex-crendentials" ]]; then
+        PLEX_CLAIM_TOKEN=$($BASEDIR/plex-claim-token.sh)
+    fi
+    if [[ -z "${PLEX_CLAIM_TOKEN}" ]]; then
+        echo "Error: Missing Plex Claim Token" >&2
+        echo "Please visit https://www.plex.tv/claim/ and set the \$PLEX_CLAIM_TOKEN variable" >&2
+        exit 1
+    fi
 fi
 
 while getopts "r" OPT; do

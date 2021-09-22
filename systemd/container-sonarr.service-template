@@ -1,0 +1,35 @@
+[Unit]
+Description=Podman container-sonarr.service
+Documentation=man:podman-generate-systemd(1)
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=%t/containers
+
+[Service]
+Environment=PODMAN_SYSTEMD_UNIT=%n
+Restart=on-failure
+TimeoutStopSec=70
+ExecStartPre=/bin/rm -f %t/container-sonarr.pid %t/container-sonarr.ctr-id
+ExecStart=/usr/bin/podman run -d \
+          --name=sonarr \
+          --conmon-pidfile %t/container-sonarr.pid \
+          --cidfile %t/container-sonarr.ctr-id \
+          --sdnotify=conmon \
+          --cgroups=no-conmon \
+          --rm \
+          --replace \
+          --network=host \
+          -e PUID=$PUID \
+          -e PGID=$PGID \
+          -e TZ=$TZ \
+          -v $SONARR_CONFIG_DIR:/config:Z \
+          -v $VIDEOS_DIR:/videos:z \
+          --label "io.containers.autoupdate=registry" \
+          $SONARR_IMAGE
+ExecStop=/usr/bin/podman stop --ignore --cidfile %t/container-sonarr.ctr-id -t 10
+ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile %t/container-sonarr.ctr-id
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target default.target

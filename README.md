@@ -125,16 +125,12 @@ sudo modprobe tun
 
 Start the VPN container:
 
-```shell script
-./scripts/vpn.sh
-```
-
-Add the container to systemd for service management:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-sudo cp systemd/vpn-container.service /etc/systemd/system/
+envsubst < systemd/container-vpn.service-template |sudo tee /etc/systemd/system/container-vpn.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now vpn-container.service
+sudo systemctl enable --now container-vpn.service
 ```
 
 ### Install Jackett Container
@@ -147,18 +143,12 @@ sudo mkdir -p "$VIDEOS_DIR/downloads/torrents" "$JACKETT_CONFIG_DIR"
 sudo chown -R "$APP_USER:$APP_GROUP" "$VIDEOS_DIR" "$JACKETT_CONFIG_DIR"
 ```
 
-Start the Jackett container:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-./scripts/jackett.sh
-```
-
-Add the container to systemd for service management:
-
-```shell script
-sudo cp systemd/jackett-container.service /etc/systemd/system/
+envsubst < systemd/container-jackett.service-template |sudo tee /etc/systemd/system/container-jackett.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now jackett-container.service
+sudo systemctl enable --now container-jackett.service
 ```
 
 Open a web browser and enter the address with your hostname:
@@ -174,18 +164,12 @@ sudo mkdir -p "$VIDEOS_DIR/downloads/qbittorrent" "$QBITTORRENT_CONFIG_DIR"
 sudo chown -R "$APP_USER:$APP_GROUP" "$VIDEOS_DIR" "$QBITTORRENT_CONFIG_DIR"
 ```
 
-Start the qBittorrent container:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-./scripts/qbittorrent.sh
-```
-
-Add the container to systemd for service management:
-
-```shell script
-sudo cp systemd/qbittorrent-container.service /etc/systemd/system/
+envsubst < systemd/container-qbittorrent.service-template |sudo tee /etc/systemd/system/container-qbittorrent.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now qbittorrent-container.service
+sudo systemctl enable --now container-qbittorrent.service
 ```
 
 Open a web browser and enter the address with your hostname:
@@ -209,26 +193,20 @@ sudo firewall-cmd --add-service sabnzbd --permanent
 sudo firewall-cmd --reload
 ```
 
-Start the SABnzbd container:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-./scripts/sabnzbd.sh
-```
-
-Add the container to systemd for service management:
-
-```shell script
-sudo cp systemd/sabnzbd-container.service /etc/systemd/system/
+envsubst < systemd/container-sabnzbd.service-template |sudo tee /etc/systemd/system/container-sabnzbd.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now sabnzbd-container.service
+sudo systemctl enable --now container-sabnzbd.service
 ```
 
 SABnzbd binds to the localhost, we need to change that if you want to access it from another host:
 
 ```shell script
-sudo systemctl stop sabnzbd-container.service
+sudo systemctl stop container-sabnzbd.service
 sudo sed -i 's/^host =.*/host = 0.0.0.0/' "$SABNZBD_CONFIG_DIR/.sabnzbd/sabnzbd.ini"
-sudo systemctl start sabnzbd-container.service
+sudo systemctl start container-sabnzbd.service
 ```
 
 Open a web browser and enter the address with your hostname:
@@ -252,18 +230,12 @@ sudo firewall-cmd --add-service sonarr --permanent
 sudo firewall-cmd --reload
 ```
 
-Start the Sonarr container:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-./scripts/sonarr.sh
-```
-
-Add the container to systemd for service management:
-
-```shell script
-sudo cp systemd/sonarr-container.service /etc/systemd/system/
+envsubst < systemd/container-sonarr.service-template |sudo tee /etc/systemd/system/container-sonarr.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now sonarr-container.service
+sudo systemctl enable --now container-sonarr.service
 ```
 
 ### Install Radarr Container
@@ -284,18 +256,12 @@ sudo firewall-cmd --add-service radarr --permanent
 sudo firewall-cmd --reload
 ```
 
-Start the Radarr container:
+Add the container to systemd for service management, and start the container:
 
 ```shell script
-./scripts/radarr.sh
-```
-
-Add the container to systemd for service management:
-
-```shell script
-sudo cp systemd/radarr-container.service /etc/systemd/system/
+envsubst < systemd/container-radarr.service-template |sudo tee /etc/systemd/system/container-radarr.service
 sudo systemctl daemon-reload
-sudo systemctl enable --now radarr-container.service
+sudo systemctl enable --now container-radarr.service
 ```
 
 Open a web browser and enter the address with your hostname:
@@ -323,22 +289,18 @@ sudo firewall-cmd --reload
 
 Generate a [Plex Claim Token](https://www.plex.tv/claim/), then save it to an environment variable:
 
-```shell script
-export PLEX_CLAIM_TOKEN=claim-xxx
-```
-
 Create the Plex Media Server container:
 
 ```shell script
-./scripts/plex.sh
+./scripts/create-plex-container.sh
 ```
 
 Add the container to systemd for service management:
 
 ```shell script
-sudo cp systemd/plex-container.service /etc/systemd/system/
+sudo cp systemd/container-plex.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now plex-container.service
+sudo systemctl enable container-plex.service
 ```
 
 Open a web browser and enter the address with your hostname:
