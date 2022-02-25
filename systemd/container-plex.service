@@ -9,7 +9,7 @@ Restart=on-failure
 TimeoutStopSec=70
 ExecStart=/usr/bin/podman start -a plex
 ExecStop=/usr/bin/podman stop -t 30 plex
-Type=notify
+Type=simple
 NotifyAccess=all
 
 [Install]
