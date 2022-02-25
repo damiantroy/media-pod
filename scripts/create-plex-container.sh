@@ -22,7 +22,7 @@ done
 
 if [[ "$REBUILD" == "true" ]]; then
     echo "* Stopping and destroying Plex"
-    sudo systemctl stop plex-container.service
+    sudo systemctl stop container-plex.service
     sudo podman stop plex
     sudo podman rm plex
 fi
@@ -42,5 +42,5 @@ sudo podman run -d \
     "$PLEX_IMAGE:$PLEX_TAG"
 
 if [[ "$REBUILD" == "true" ]]; then
-    sudo systemctl start plex-container.service
+    sudo systemctl start container-plex.service
 fi
