@@ -1,4 +1,4 @@
-# VideoBot: Personal Video Downloader
+# Media Manager: Personal Video Downloader
 
 This tutorial will help you create an all-in-one HTPC downloader box. You'll create installations for OpenVPN, Jackett,
 qBittorrent, SABnzbd, Sonarr, Radarr and Plex Media Server in Podman containers running on Rocky Linux 8.
@@ -30,12 +30,12 @@ other installs selected. Minimal installs just have less packages installed.
 
 ### Clone Repo
 
-If you haven't cloned the VideoBot repo already, you'll need to do so:
+If you haven't cloned the Media Manager repo already, you'll need to do so:
 
 ```shell script
 sudo dnf install git make
-git clone https://github.com/damiantroy/videobot.git
-cd videobot/
+git clone https://github.com/damiantroy/media-manager.git
+cd media-manager/
 ```
 
 ### Environment Variables
