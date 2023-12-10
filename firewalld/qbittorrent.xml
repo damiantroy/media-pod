@@ -2,4 +2,6 @@
 <service>
   <short>qBittorrent</short>
   <port protocol="tcp" port="8111"/>
+  <port protocol="tcp" port="6881" />
+  <port protocol="udp" port="6881" />
 </service>
