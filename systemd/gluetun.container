@@ -1,0 +1,13 @@
+[Container]
+Image=docker.io/qmcgaw/gluetun:latest
+ContainerName=gluetun
+EnvironmentFile=%h/.config/environment.d/gluetun.env
+AddCapability=NET_ADMIN
+AddDevice=/dev/net/tun
+PodmanArgs=--privileged
+PublishPort=9696:9696
+PublishPort=8111:8111
+PublishPort=6881:6881/udp
+
+[Install]
+WantedBy=multi-user.target default.target

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <service>
-  <short>sonarr</short>
-  <port protocol="tcp" port="8989" />
+  <short>Sonarr</short>
+  <port protocol="tcp" port="8989"/>
 </service>

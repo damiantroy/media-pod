@@ -1,0 +1,12 @@
+[Container]
+Image=ghcr.io/hotio/sonarr:latest
+ContainerName=sonarr
+Environment=PUID=${MEDIA_PUID}
+Environment=PGID=${MEDIA_PGID}
+Environment=TZ=${TZ}
+PublishPort=8989:8989
+Volume=${CONFIG_DIR}/sonarr:/config:Z
+Volume=${DATA_DIR}:/data:z
+
+[Install]
+WantedBy=multi-user.target default.target
