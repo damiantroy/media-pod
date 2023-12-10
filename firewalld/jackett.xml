@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<service>
-  <short>jackett</short>
-  <port protocol="tcp" port="9117" />
-</service>

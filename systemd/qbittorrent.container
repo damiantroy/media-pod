@@ -1,0 +1,16 @@
+[Unit]
+After=gluetun.service
+
+[Container]
+Image=ghcr.io/hotio/qbittorrent:latest
+ContainerName=qbittorrent
+Environment=PUID=${MEDIA_PUID}
+Environment=PGID=${MEDIA_PGID}
+Environment=TZ=${TZ}
+Environment=WEBUI_PORTS=8111/tcp
+Network=container:gluetun
+Volume=${CONFIG_DIR}/qbittorrent:/config:Z
+Volume=${DATA_DIR}:/data:z
+
+[Install]
+WantedBy=multi-user.target default.target

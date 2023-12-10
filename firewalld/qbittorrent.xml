@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <service>
-  <short>qbittorrent</short>
+  <short>qBittorrent</short>
   <port protocol="tcp" port="8111" />
   <port protocol="tcp" port="6881" />
   <port protocol="udp" port="6881" />
