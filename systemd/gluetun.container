@@ -8,6 +8,7 @@ PodmanArgs=--privileged
 PublishPort=9696:9696
 PublishPort=8111:8111
 PublishPort=6881:6881/udp
+AutoUpdate=registry
 
 [Install]
 WantedBy=multi-user.target default.target

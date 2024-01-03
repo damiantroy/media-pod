@@ -7,6 +7,7 @@ Environment=TZ=${TZ}
 PublishPort=8989:8989
 Volume=${CONFIG_DIR}/sonarr:/config:Z
 Volume=${DATA_DIR}:/data:z
+AutoUpdate=registry
 
 [Install]
 WantedBy=multi-user.target default.target

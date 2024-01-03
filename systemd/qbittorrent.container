@@ -11,6 +11,7 @@ Environment=WEBUI_PORTS=8111/tcp
 Network=container:gluetun
 Volume=${CONFIG_DIR}/qbittorrent:/config:Z
 Volume=${DATA_DIR}:/data:z
+AutoUpdate=registry
 
 [Install]
 WantedBy=multi-user.target default.target

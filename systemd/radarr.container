@@ -7,6 +7,7 @@ Environment=TZ=${TZ}
 PublishPort=7878:7878
 Volume=${CONFIG_DIR}/radarr:/config:Z
 Volume=${DATA_DIR}:/data:z
+AutoUpdate=registry
 
 [Install]
 WantedBy=multi-user.target default.target
