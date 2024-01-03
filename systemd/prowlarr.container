@@ -9,6 +9,7 @@ Environment=PUID=${MEDIA_PUID}
 Environment=PGID=${MEDIA_PGID}
 Network=container:gluetun
 Volume=${CONFIG_DIR}/prowlarr:/config:Z
+AutoUpdate=registry
 
 [Install]
 WantedBy=multi-user.target default.target
