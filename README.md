@@ -4,7 +4,7 @@ This tutorial will show the technical instructions to install Plex,
 Sonarr, Radarr, SABNZBd, qBittorrent, Prowlarr, and Gluetun.
 
 The instructions were written for an Enterprise Linux 9 minimal install,
-and should work for CentOS Stream release 9, AlmaLinux 9, and Rocket Linux 9.
+and should work for CentOS Stream release 9, AlmaLinux 9, and Rocky Linux 9.
 
 This setup will send qBittorrent and Prowler through the VPN using Gluetun,
 the rest of the traffic will go direct.
