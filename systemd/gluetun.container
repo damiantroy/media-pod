@@ -10,5 +10,8 @@ PublishPort=8111:8111
 PublishPort=6881:6881/udp
 AutoUpdate=registry
 
+[Service]
+Restart=always
+
 [Install]
 WantedBy=multi-user.target default.target

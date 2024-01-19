@@ -9,5 +9,8 @@ Volume=${CONFIG_DIR}/sonarr:/config:Z
 Volume=${DATA_DIR}:/data:z
 AutoUpdate=registry
 
+[Service]
+Restart=always
+
 [Install]
 WantedBy=multi-user.target default.target

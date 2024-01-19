@@ -11,5 +11,8 @@ Volume=/var/lib/plex/Transcode:/transcode:Z
 Volume=/data:/data:z
 AutoUpdate=registry
 
+[Service]
+Restart=always
+
 [Install]
 WantedBy=multi-user.target default.target

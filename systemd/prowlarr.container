@@ -1,5 +1,6 @@
 [Unit]
 After=gluetun.service
+Requires=gluetun.service
 
 [Container]
 Image=ghcr.io/hotio/prowlarr
@@ -10,6 +11,9 @@ Environment=PGID=${MEDIA_PGID}
 Network=container:gluetun
 Volume=${CONFIG_DIR}/prowlarr:/config:Z
 AutoUpdate=registry
+
+[Service]
+Restart=always
 
 [Install]
 WantedBy=multi-user.target default.target

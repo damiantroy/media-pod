@@ -1,5 +1,6 @@
 [Unit]
 After=gluetun.service
+Requires=gluetun.service
 
 [Container]
 Image=ghcr.io/hotio/qbittorrent:latest
@@ -12,6 +13,9 @@ Network=container:gluetun
 Volume=${CONFIG_DIR}/qbittorrent:/config:Z
 Volume=${DATA_DIR}:/data:z
 AutoUpdate=registry
+
+[Service]
+Restart=always
 
 [Install]
 WantedBy=multi-user.target default.target
