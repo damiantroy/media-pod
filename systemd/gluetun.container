@@ -1,3 +1,6 @@
+[Unit]
+After=NetworkManager.service
+
 [Container]
 Image=docker.io/qmcgaw/gluetun:latest
 ContainerName=gluetun
