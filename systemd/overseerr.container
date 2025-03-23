@@ -1,0 +1,16 @@
+[Container]
+Image=ghcr.io/hotio/overseerr:latest
+ContainerName=overseerr
+Environment=PUID=${MEDIA_PUID}
+Environment=PGID=${MEDIA_PGID}
+Environment=TZ=${TZ}
+PublishPort=5055:5055
+Network=slirp4netns:allow_host_loopback=true
+Volume=${CONFIG_DIR}/overseerr:/config:Z
+AutoUpdate=registry
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

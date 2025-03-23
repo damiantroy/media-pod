@@ -1,7 +1,7 @@
 # Damo's Media Pod
 
 This tutorial will show the technical instructions to install Plex,
-Sonarr, Radarr, SABNZBd, qBittorrent, Prowlarr, and Gluetun.
+Overseerr, Sonarr, Radarr, SABNZBd, qBittorrent, Prowlarr, and Gluetun.
 
 The instructions were written for an Enterprise Linux 9 minimal install,
 and should work for CentOS Stream release 9, AlmaLinux 9, and Rocky Linux 9.
@@ -29,15 +29,15 @@ We'll be using `/srv` for config, and `/data` for media files, so make sure
 you configure the appropriate partitions before this step.
 
 ```bash
-sudo mkdir -p /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr}
+sudo mkdir -p /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr,overseerr}
 sudo mkdir -p /data/media/{Movies,TV,RealityTV,KidsMovies,KidsTV}
 sudo mkdir -p /data/{usenet,torrents}/{movies,tv,incomplete}
 sudo mkdir -p /var/lib/plex/Transcode
 sudo chown media:media -R /data/{usenet,torrents,media} \
-    /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr} /var/lib/plex
+    /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr,overseerr} /var/lib/plex
 sudo su - media
 podman unshare chown -R media:media /data/{usenet,torrents,media} \
-    /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr} /var/lib/plex
+    /srv/{prowlarr,qbittorrent,radarr,sabnzbd,sonarr,overseerr} /var/lib/plex
 ```
 
 ## Networking
@@ -46,7 +46,7 @@ podman unshare chown -R media:media /data/{usenet,torrents,media} \
 echo ip_tables | sudo tee /etc/modules-load.d/ip_tables.conf
 sudo systemctl restart systemd-modules-load
 sudo firewall-cmd --add-masquerade --permanent
-for SERVICE in prowlarr qbittorrent radarr sabnzbd sonarr; do
+for SERVICE in prowlarr qbittorrent radarr sabnzbd sonarr overseerr; do
     sudo firewall-cmd --new-service-from-file ~media/media-pod/firewalld/${SERVICE}.xml --permanent
     sudo firewall-cmd --add-service $SERVICE --permanent
 done
@@ -64,7 +64,7 @@ cp ~/media-pod/environment.d/* ~/.config/environment.d/
 vi ~/.config/environment.d/media.conf
 vi ~/.config/environment.d/gluetun.env
 systemctl --user daemon-reload
-systemctl --user start gluetun prowlarr qbittorrent sabnzbd radarr sonarr plex
+systemctl --user start gluetun prowlarr qbittorrent sabnzbd radarr sonarr overseerr plex
 ```
 
 ## Bookmarks
@@ -72,6 +72,7 @@ systemctl --user start gluetun prowlarr qbittorrent sabnzbd radarr sonarr plex
 Replace 'localhost' with your server IP:
 
 * Plex: http://localhost:32400/web/
+* Overseerr: http://localhost:5055/
 * Sonarr: http://localhost:8989/
 * Radarr: http://localhost:7878/
 * SABnzbd: http://localhost:8080/
@@ -187,8 +188,13 @@ Config:
     - Copy API Key from under Settings/General
     - qBittorrent: Change port to 8111
 
-### Plex
+### Overseerr
 
+```bash
+systemctl --user start overseerr
+```
+
+### Plex
 
 ```bash
 systemctl --user start prowlarr
